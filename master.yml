@@ -1,0 +1,48 @@
+# Inicializando o cluster kubernets e instalação do pod de rede
+
+- hosts: master
+  become: yes
+  tasks:
+    - name: Inicializar o cluster
+     #shell: kubeadm init --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
+     #shell: kubeadm init --apiserver-advertise-address="192.168.254.10" --apiserver-cert-extra-sans="192.168.254.10"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16 >> cluster_initialized.txt
+      shell: kubeadm init --apiserver-advertise-address="192.168.0.2" --node-name k8s-master --pod-network-cidr=192.168.0.0/16 >> cluster_initialized.txt 
+      args:
+        chdir: $HOME
+        creates: cluster_initialized.txt
+
+    - name: Criar o diretório .kube
+      become: yes
+      become_user: ansible
+      file:
+        path: $HOME/.kube
+        state: directory
+        mode: 0755
+
+    - name: copiar admin.conf para usuario do kube config
+      copy:
+        src: /etc/kubernetes/admin.conf
+        dest: /home/ansible/.kube/config
+        remote_src: yes
+        owner: ansible
+
+    - name: Instalar o Pod de rede
+      become: yes
+      become_user: ansible
+      shell: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')" >> pod_network_setup.txt
+      args:
+        chdir: $HOME
+        creates: pod_network_setup.txt
+
+    #- name: Verificar se Kubernetes Dashboard UI service ja existe.
+    #  shell: kubectl get services --namespace kube-system | grep -q kubernetes-dashboard
+    #  changed_when: false
+    #  failed_when: false
+    #  register: kubernetes_dashboard_service
+    #  when: kubernetes_enable_web_ui | bool
+      
+    #- name: Habilitar Kubernetes Web Dashboard UI (if configured).
+    #  command: "kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml"
+    #  when:
+    #    - kubernetes_enable_web_ui | bool
+    #    - kubernetes_dashboard_service is failed

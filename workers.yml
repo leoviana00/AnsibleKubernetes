@@ -1,0 +1,32 @@
+# Ingressando máquinas no cluster
+
+- hosts: master
+  become: yes
+  gather_facts: false
+  tasks:
+    - name: Comando get join
+      shell: kubeadm token create --print-join-command
+      register: join_command_raw
+
+    - name: Comando set join
+      set_fact: join_command={{ join_command_raw.stdout_lines[0] }}
+   
+- hosts: workers
+  become: yes
+  tasks:
+    - name: Ingressar no cluster
+      shell: "{{ hostvars['master'].join_command }} >> node_joined.txt"
+      args:
+        chdir: $HOME
+        creates: node_joined.txt
+
+- hosts: master
+  become: yes
+  tasks: 
+    - name: Verificando o cluster
+      become_user: ansible
+      shell: kubectl get nodes
+      register: nodeup
+
+    - debug:
+        var: nodeup
