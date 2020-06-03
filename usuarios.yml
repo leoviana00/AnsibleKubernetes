@@ -16,3 +16,8 @@
       authorized_key: user=ansible key="{{item}}"
       with_file:
         - ~/.ssh/id_rsa.pub
+
+    - name: Adicionar usuário ao grupo docker
+      user:
+        name: ansible
+        group: docker

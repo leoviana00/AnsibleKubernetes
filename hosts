@@ -1,11 +1,9 @@
 [servers_k8s]
 
   master  ansible_ssh_host=192.168.0.2  ansible_ssh_user=root ansible_ssh_private_key_file=/home/leoviana/.ssh/id_rsa
+  
   workers ansible_ssh_host=192.168.0.10  ansible_ssh_user=root ansible_ssh_private_key_file=/home/leoviana/.ssh/id_rsa
 
 [servers_k8s:vars]
 ansible_python_interpreter=/usr/bin/python
-#ansible_become=yes
-#ansible_become_method=sudo
-#ansible_become_user=root
-#ansible_become_pass=Info.123
+
