@@ -1,4 +1,9 @@
-# Comandos
+___________________________________________________________________________
+                               
+                                COMANDOS
+___________________________________________________________________________    
+
+# https://kubernetes.io/pt/docs/reference/kubectl/cheatsheet/                            
 
 $ kubectl cluster-info
 $ kubectl get namespace
@@ -19,56 +24,51 @@ $ kubectl config set-context --current --namespace=nome_do_namespace
 
 $ kubectl create namespace namespace_name
 
--------------------------------------------------------------------------
+_________________________________________________________________________
+                               
                                DASHBOARD
--------------------------------------------------------------------------                               
+_________________________________________________________________________                               
+
 $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta4/aio/deploy/recommended.yaml
 
 $ kubectl -n kubernetes-dashboard describe service kubernetes-dashboard
 
-Criar usuário admin
+_________________________________________________________________________
+                         
+                     DASHBOARD - USUÁRIO ADMIN (TOKEN)
+_________________________________________________________________________
+
+
 $ kubectl apply -f kubernetes-dashboard-service-np.yaml 
 
 $ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')  
 
 #logon
 https://192.168.0.10:30002/#/login
----
 
+
+_________________________________________________________________________
+                             
+                              DEPLOYMENT
+_________________________________________________________________________  
+    
+- https://spring.io/guides/gs/spring-boot-kubernetes/  
+- https://medium.com/@fidelissauro/kubernetes-criando-um-cluster-simples-com-o-kubeadm-e50a9eb4f4a6
 
 #Exemplo de deploy
 
-$ kubectl create -f deployment.yaml
+1 . Criar Dockerfile
+2 . $ docker build -t springguides/demo .
+3 . $ docker run -p 8080:8080 springguides/demo
+4 . $ curl localhost:8080/actuator/health
+4 . $ docker login
+5 . $ docker push springguides/demo
+6 . $ kubectl create deployment demo --image=springguides/demo --dry-run -o=yaml > deployment.yaml
+7 . echo --- >> deployment.yaml
+8 . $ kubectl create service clusterip demo --tcp=8080:8080 --dry-run -o=yaml >> deployment.yaml
+9 . $ kubectl apply -f deployment.yaml
+10. $ kubectl get all
+11. $ kubectl port-forward svc/demo 8080:8080
 
-$ kubectl get deployments
+__________________________________________________________________________
 
-$ kubectl get rs  (ReplicaSet)
-
-$ kubectl get pods --show-labels (verificar as labels criadas)
-
-$ kubectl describe deployments (Descrição do deployments)
-
-$ kubectl get deployment -o wide
-
-$ kubectl get pod
-
-$ kubectl exec -i -t nginx-deployment-8859878f8-7gfw9 -- /bin/bash
-
-$ kubectl exec nginx-deployment-8859878f8-7gfw9 ls (executar comandos dentro do container sem precisar entrar nele)
-
-$ kubectl logs -f nginx-deployment-8859878f8-7gfw9 (transmitir logs para a saida do terminal)
-
-$ sudo kubectl port-forward pod/nginx-deployment-8859878f8-7gfw9 80:80 (obter acesso de rede a um Pod)
----
-
-# Você também pode criar um Deployment imperativamente usando o comando run. O run criará um Deployment usando uma imagem fornecida como parâmetro:
-
-$ kubectl run nginx-deployment --image=nginx --port=80 --replicas=2
-
-# O comando expose permite expor rapidamente um Deployment em execução como um Serviço Kubernetes, permitindo conexões de fora do seu cluster Kubernetes:
-
-$ kubectl expose deploy nginx-deployment --type=LoadBalancer --port=80 --name=nginx-svc
-
-# Aqui, expusemos o Deployment nginx-deployment como um serviço LoadBalancer, abrindo a porta 80 para o tráfego externo e direcionando-a para a porta 80 do container. Nomeamos o serviço como nginx-svc. Usando o tipo de Serviço LoadBalancer, um balanceador de carga em nuvem é automaticamente provisionado e configurado pelo Kubernetes. Para obter o endereço IP externo do Serviço, use get:
-
-$ kubectl get svc nginx-svc
