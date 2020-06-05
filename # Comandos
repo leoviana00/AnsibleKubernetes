@@ -49,9 +49,27 @@ https://192.168.0.10:30002/#/login
 
 _________________________________________________________________________
                              
-                              DEPLOYMENT
+                              DEPLOYMENT APP SPRING
 _________________________________________________________________________  
     
+1 - Criar o manifesto (app-spring.yaml)
+       - Deploy
+       - Container
+       - Service 
+
+2 - Criar o deployment 
+$ kubectl apply -f primeirodeploy.yaml  
+
+3 - Listar os pods        
+$ kubectl get pods -o wide
+
+4 - Listar os services
+$ kubectl get services
+
+Acessar o navegador ip:porta
+
+_________________________________________________________________________
+
 - https://spring.io/guides/gs/spring-boot-kubernetes/  
 - https://medium.com/@fidelissauro/kubernetes-criando-um-cluster-simples-com-o-kubeadm-e50a9eb4f4a6
 
