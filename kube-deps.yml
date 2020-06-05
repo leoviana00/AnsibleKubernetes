@@ -1,7 +1,8 @@
 # Instalação das dependências do docker e kubernets - Centos e Ubuntu
 
 - hosts: 
-    workers
+    worker1
+    worker2
     master
   become: yes
   tasks:
@@ -48,12 +49,14 @@
                 ]
               }
    
-        - name: disabilita SELinux - CentOS
-          command: setenforce 0
-
-        - name: disabilita SELinux on reboot - CentOS
+        - name: disabilita SELinux no próximo reboot - CentOS
           selinux:
             state: disabled
+
+        - name: disabilita SELinux - CentOS
+          command: setenforce 0
+          ignore_errors: True
+          changed_when: false
         
         - name: add repositorio YUM Kubernetes - CentOS
           yum_repository:
@@ -119,11 +122,19 @@
         state: directory
         mode: 0755
 
-    - name: start Docker
-      systemd:
-        state: started
-        daemon_reload: yes
+    - name: Start Docker service
+      service:
         name: docker
+        state: started
+        enabled: yes
+      become: yes
+
+    - name: Adicionando usuário ansible ao grupo docker 
+      user:
+        name: ansible
+        groups: docker
+        append: yes
+      become: yes  
        
 
     - name: garantindo que net.bridge.bridge-nf-call-ip6tables esteja setada como 1

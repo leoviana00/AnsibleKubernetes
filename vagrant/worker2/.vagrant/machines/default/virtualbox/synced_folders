@@ -1,0 +1,1 @@
+{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"/home/leonardo/Documentos/desafios/AnsibleKubernetes/vagrant/worker2","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}

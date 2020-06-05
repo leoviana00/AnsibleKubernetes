@@ -1,8 +1,6 @@
 # Desabilitando a swap , pois o kubernets não trabalha bem com ela habilitada
 
-- hosts: 
-    workers
-    master
+- hosts: all
   become: yes
   tasks:
   

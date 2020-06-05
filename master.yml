@@ -5,10 +5,7 @@
   tasks:
     - name: Inicializar o cluster
       shell: kubeadm init --apiserver-advertise-address="192.168.0.2" --apiserver-cert-extra-sans="192.168.0.2"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16  
-     #shell: kubeadm init --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
-     #shell: kubeadm init --apiserver-advertise-address="192.168.254.10" --apiserver-cert-extra-sans="192.168.254.10"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16 >> cluster_initialized.txt
-     #shell: kubeadm init --apiserver-advertise-address="192.168.0.2" --node-name k8s-master --pod-network-cidr=192.168.0.0/16 >> cluster_initialized.txt 
-      args:
+      args:  
         chdir: $HOME
         creates: cluster_initialized.txt
 
