@@ -120,8 +120,8 @@ Acessar o navegador ip:porta
 - Referência: https://wiki.hetzner.de/index.php/Cloud_floating_IP_persistent/en
 
 - Outra opção: 
-nano /etc/network/ (centos)
-nano  nano /etc/network/interfaces (ubuntu)
+  - nano /etc/network/ (centos)
+  - nano /etc/network/interfaces (ubuntu)
 
 ---
 
