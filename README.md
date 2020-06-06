@@ -115,18 +115,6 @@ Acessar o navegador ip:porta
 
 # Nodes pegando IP INTERNO IGUAIS
 
-- Ubuntu antes do 20.04
-
- - $ sudo touch /etc/network/interfaces.d/60-my-floating-ip.cfg
- - $ sudo nano /etc/network/interfaces.d/60-my-floating-ip.cfg 
-
-
- - $ sudo service networking restart
-
----
-
-# ubuntu 20.04
-
 - Arquivo fix-ip-nodes
 
 - Referência: https://wiki.hetzner.de/index.php/Cloud_floating_IP_persistent/en
