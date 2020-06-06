@@ -73,6 +73,7 @@ $ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashbo
 --- 
 
 #logon
+
 https://192.168.0.2:30002/#/login (PODE SER IP DE QUALQUER UM DOS NÓS)
 
 ---
@@ -119,46 +120,14 @@ Acessar o navegador ip:porta
  - $ sudo touch /etc/network/interfaces.d/60-my-floating-ip.cfg
  - $ sudo nano /etc/network/interfaces.d/60-my-floating-ip.cfg 
 
-- auto eth0:1
-- iface eth0:1 inet static
--     address your.Float.ing.IP
--     netmask 32
 
-- $ sudo service networking restart
+ - $ sudo service networking restart
 
 ---
 
 # ubuntu 20.04
 
- - $ sudo touch /etc/netplan/60-floating-ip.yaml
- - $ sudo nano /etc/netplan/60-floating-ip.yaml
-
-- network:
--   version: 2
--   ethernets:
--     eth0:
--       addresses:
--       - your.float.ing.ip/32
-
- - $ sudo netplan apply
-
----
-
-# centos 
-
-$ sudo touch /etc/sysconfig/network-scripts/ifcfg-eth0:1
-$ sudo vi /etc/sysconfig/network-scripts/ifcfg-eth0:1
-
-
-- BOOTPROTO=static
-- DEVICE=eth0:1
-- IPADDR=your.Float.ing.IP
-- PREFIX=32
-- TYPE=Ethernet
-- USERCTL=no
-- ONBOOT=yes
-
-- $ sudo systemctl restart network
+- Arquivo fix-ip-nodes
 
 - Referência: https://wiki.hetzner.de/index.php/Cloud_floating_IP_persistent/en
 

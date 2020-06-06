@@ -1,0 +1,50 @@
+# Nodes kubernetes pegando o mesmo ip.
+
+- Realize a configuração abauxo substituindo o float.ing.ip pelo ip da máquina.
+_________________________________________________________________
+
+#  (Ubuntu - antes 20.04, Debian):
+_________________________________________________________________
+
+$ sudo touch /etc/network/interfaces.d/60-my-floating-ip.cfg
+$ sudo nano /etc/network/interfaces.d/60-my-floating-ip.cfg
+
+auto eth0:1
+iface eth0:1 inet static
+    address your.Float.ing.IP
+    netmask 32
+
+$ sudo service networking restart
+_________________________________________________________________
+
+# Ubuntu 20.04:
+_________________________________________________________________
+
+$ sudo touch /etc/netplan/60-floating-ip.yaml
+$ sudo nano /etc/netplan/60-floating-ip.yaml
+
+network:
+  version: 2
+  ethernets:
+    eth0:
+      addresses:
+      - your.float.ing.ip/32
+
+$ sudo netplan apply
+________________________________________________________________
+
+# Família (Fedora, CentOS):
+________________________________________________________________
+
+$ sudo touch /etc/sysconfig/network-scripts/ifcfg-eth0:1
+$ sudo vi /etc/sysconfig/network-scripts/ifcfg-eth0:1
+
+BOOTPROTO=static
+DEVICE=eth0:1
+IPADDR=your.Float.ing.IP
+PREFIX=32
+TYPE=Ethernet
+USERCTL=no
+ONBOOT=yes
+
+$ sudo systemctl restart network
