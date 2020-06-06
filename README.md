@@ -1,7 +1,6 @@
-___________________________________________________________________________
 
-                             Levantar o ambiente
-___________________________________________________________________________ 
+
+                           # Levantar o ambiente
 
 - Subir as vms
   vagrant up
@@ -10,46 +9,46 @@ ___________________________________________________________________________
   - k8s-worker1 - IP: 192.168.0.10
   - k8s-worker2 - IP: 192.168.0.11
 
--> Configurar arquivo hosts (ansible) 
+- Configurar arquivo hosts (ansible) 
 
--> Alterar o sshd_config - Permitindo o password authentication
+- Alterar o sshd_config - Permitindo o password authentication
 
   - $ sudo vi /etc/ssh/sshd_config
-  - PasswordAuthentication yes
+   PasswordAuthentication yes
 
--> Reiniciar o serviço ssh
+- Reiniciar o serviço ssh
 
   - $ sudo systemctl restart sshd
 
--> Criar usuário para compartilhamento das chaves ssh
+- Criar usuário para compartilhamento das chaves ssh
 
   - $  sudo ssh-copy-id root@192.168.0.2
   - $  sudo ssh-copy-id root@192.168.0.10
   - $  sudo ssh-copy-id root@192.168.0.11
+---
 
-->Teste de comunicação com módulo ping do ansible
+                            # Ansible  
 
+- Teste de comunicação com módulo ping do ansible
   - $ ansible -i hosts -m ping all
 
---- 
-
-# Role para desabilitar o swap nas máquinas
+- Role para desabilitar o swap nas máquinas
   - swap.yml
 
-# Role para criação do usuário ansible
+- Role para criação do usuário ansible
   - usuarios.yml
 
-# Role para instalação das dependências
+- Role para instalação das dependências
   - kube-deps.yml
 
-# Role para criação e configuração do cluster
+- Role para criação e configuração do cluster
   - master.yml
 
-# Role para ingressar as máquinas ao cluster
+- Role para ingressar as máquinas ao cluster
   - workers.yml
 
-Execução das playbooks:
-$ ansible-playbook -i hosts nomeplaybook.yaml
+- Execução das playbooks:
+  - $ ansible-playbook -i hosts nomeplaybook.yaml
 
 __________________________________________________________________________
                                
