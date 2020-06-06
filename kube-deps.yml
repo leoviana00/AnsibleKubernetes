@@ -135,6 +135,13 @@
         groups: docker
         append: yes
       become: yes  
+
+    - name: Adicionando usuário vagrant ao grupo docker 
+      user:
+        name: vagrant
+        groups: docker
+        append: yes
+      become: yes 
        
 
     - name: garantindo que net.bridge.bridge-nf-call-ip6tables esteja setada como 1

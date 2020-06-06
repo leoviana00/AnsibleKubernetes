@@ -5,6 +5,7 @@
   tasks:
     - name: Inicializar o cluster
       shell: kubeadm init --apiserver-advertise-address="192.168.0.2" --apiserver-cert-extra-sans="192.168.0.2"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16  
+     #shell: kubeadm init --apiserver-advertise-address="172.25.1.212" --apiserver-cert-extra-sans="172.25.1.212"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16
       args:  
         chdir: $HOME
         creates: cluster_initialized.txt
@@ -34,15 +35,3 @@
 
     
 
-    #- name: Verificar se Kubernetes Dashboard UI service ja existe.
-    #  shell: kubectl get services --namespace kube-system | grep -q kubernetes-dashboard
-    #  changed_when: false
-    #  failed_when: false
-    #  register: kubernetes_dashboard_service
-    #  when: kubernetes_enable_web_ui | bool
-      
-    #- name: Habilitar Kubernetes Web Dashboard UI (if configured).
-    #  command: "kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml"
-    #  when:
-    #    - kubernetes_enable_web_ui | bool
-    #    - kubernetes_dashboard_service is failed
