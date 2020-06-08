@@ -1,2 +1,51 @@
 ---
-# tasks file for kubernets
+# Configuração do master e do cluster
+
+- name: instalando kubectl
+  yum:
+     name: kubectl
+     state: present
+  when: ansible_os_family == "RedHat"
+
+- name: instalando kubectl - Ubuntu
+  apt:
+     name: kubectl
+     state: present
+     update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: Inicializar o cluster
+  shell: kubeadm init --apiserver-advertise-address="192.168.0.2" --apiserver-cert-extra-sans="192.168.0.2"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16  
+  args:  
+    chdir: $HOME
+    creates: cluster_initialized.txt
+
+- name: Criar o diretório .kube
+  become: yes
+  become_user: ansible
+  file:
+    path: $HOME/.kube
+    state: directory
+    mode: 0755
+
+- name: copiar admin.conf para usuario do kube config
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/ansible/.kube/config
+    remote_src: yes
+    owner: ansible
+
+- name: Instalar o Pod de rede
+  become: yes
+  become_user: ansible
+  shell: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')" >> pod_network_setup.txt
+  args:
+    chdir: $HOME
+    creates: pod_network_setup.txt
+
+- name: Comando get join
+  shell: kubeadm token create --print-join-command
+  register: join_command_raw
+
+- name: Comando set join
+  set_fact: join_command={{ join_command_raw.stdout_lines[0] }}

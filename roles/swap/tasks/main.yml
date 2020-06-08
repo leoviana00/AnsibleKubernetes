@@ -1,2 +1,16 @@
 ---
-# tasks file for kubernets
+# Desabilitando a swap , pois o kubernets não trabalha bem com ela habilitada
+
+- name: Desabilitando o SWAP (1/2)
+  shell: |
+     swapoff -a
+      
+
+- name: Desabilitando o SWAP no fstab (2/2)
+  replace:
+    path: /etc/fstab
+    regexp: '^(\s*)([^#\n]+\s+)(\w+\s+)swap(\s+.*)$'
+    replace: '#\1\2\3swap\4'
+    backup: yes
+  
+    

@@ -1,2 +1,8 @@
 ---
-# tasks file for kubernets
+# Ingressar no cluster
+
+- name: Ingressar no cluster
+  shell: "{{ hostvars['master1'].join_command }} >> node_joined.txt"
+  args:
+    chdir: $HOME
+    creates: node_joined.txt

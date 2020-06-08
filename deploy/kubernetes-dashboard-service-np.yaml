@@ -1,6 +1,6 @@
-#Creates an admin-user
-#Assigns the cluster-admin role
-#Creates a new NodePort service that publishes TargetPort 8443 as NodePort #30002:
+#Criando usuário admin
+#Atribui a função de administrador de cluster
+#Cria um novo serviço NodePort que publica o TargetPort 8443 como NodePort #30002:
 
 --- 
 apiVersion: v1

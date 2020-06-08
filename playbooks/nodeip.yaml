@@ -1,0 +1,62 @@
+- hosts: master
+  become: yes
+  tasks:
+    - name: Configurando NodeIP
+      lineinfile:
+        path: /etc/default/kubelet
+       #line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
+        line: KUBELET_EXTRA_ARGS=--node-ip=192.168.0.2
+        create: yes
+
+    - name: Reiniciando o Kubelet
+      service:
+        name: kubelet
+        daemon_reload: yes
+        state: restarted
+
+- hosts: worker1
+  become: yes
+  tasks:
+    - name: Configurando NodeIP
+      lineinfile:
+        path: /etc/default/kubelet
+       #line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
+        line: KUBELET_EXTRA_ARGS=--node-ip=192.168.0.#{10 + i}
+        create: yes
+
+    - name: Reiniciando o Kubelet
+      service:
+        name: kubelet
+        daemon_reload: yes
+        state: restarted
+
+- hosts: worker2
+  become: yes
+  tasks:
+    - name: Configurando NodeIP
+      lineinfile:
+        path: /etc/default/kubelet
+       #line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
+        line: KUBELET_EXTRA_ARGS=--node-ip=192.168.0.0.#{10 + i}
+        create: yes
+
+    - name: Reiniciando o Kubelet
+      service:
+        name: kubelet
+        daemon_reload: yes
+        state: restarted
+
+
+- hosts: worker3
+  become: yes
+  tasks:
+    - name: Configurando NodeIP
+      lineinfile:
+        path: /etc/default/kubelet
+        line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}      
+
+    - name: Reiniciando o Kubelet
+      service:
+        name: kubelet
+        daemon_reload: yes
+        state: restarted

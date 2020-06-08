@@ -30,21 +30,33 @@
 - Teste de comunicação com módulo ping do ansible
   - $ ansible -i hosts -m ping all
 
-- Role para desabilitar o swap nas máquinas
-  - ansible-playbook -i hosts swap.yml
+    Criando roles:
 
-- Role para criação do usuário ansible
-  - usuarios.yml
 
-- Role para instalação das dependências
-  - ansible-playbook -i hosts kube-deps.yml
+- name: Playbook defaul
+  hosts: all
+  become: yes
+  
+  roles:
+    - swap
+    - usuarios
+    - docker
+    - kubernetes
+    - master
+    - worker
 
-- Role para criação e configuração do cluster
-  - ansible-playbook -i hosts master.yml
+---
 
-- Role para ingressar as máquinas ao cluster
-  - ansible-playbook -i hosts workers.yml
+- $ ansible-galaxy init kubernetes (Role para instalação do kubernetes)
+- $ ansible-galaxy init docker (Role para instalação do docker)
+- $ ansible-galaxy init swap (Role para desabilitar o swap nas máquinas)
+- $ ansible-galaxy init usuarios (Role para criação do usuário ansible)
+- $ ansible-galaxy init master (Role para criação e configuração do cluster)
+- $ ansible-galaxy init worker (Role para ingressar as máquinas ao cluster)
 
+- $ ansible-playbook -i hosts playbook.yaml
+  
+---
 
 # Comandos Kubernetes    
 
@@ -114,9 +126,10 @@ Acessar o navegador ip:porta
 
 - Referência: https://wiki.hetzner.de/index.php/Cloud_floating_IP_persistent/en
 
-- Outra opção: 
-  - nano /etc/network/ (centos)
+- Outra opção: (Testar)
+  - nano /etc/networks/ (centos)
   - nano /etc/network/interfaces (ubuntu)
+$ sudo systemctl restart network
 
 ---
 

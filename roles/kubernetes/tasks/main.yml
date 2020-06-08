@@ -1,2 +1,68 @@
 ---
-# tasks file for kubernets
+# Instalação kubernetes
+- block:
+
+    - name: disabilita SELinux no próximo reboot - CentOS
+      selinux:
+        state: disabled
+
+    - name: disabilita SELinux - CentOS
+      command: setenforce 0
+      ignore_errors: True
+      changed_when: false
+        
+    - name: add repositorio YUM Kubernetes - CentOS
+      yum_repository:
+        name: Kubernetes
+        description: Kubernetes YUM repository
+        baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+        gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+        gpgcheck: yes
+  when: ansible_os_family == "RedHat"
+
+- block:    
+    - name: adicionando a chave do repo - Ubuntu
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+
+    - name: adicionando o repo do kubernete - Ubuntu
+      apt_repository:
+        repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+        filename: kubernetes
+  when: ansible_os_family == "Debian"
+
+
+- name: garantindo que net.bridge.bridge-nf-call-ip6tables esteja setada como 1
+  sysctl:
+    name: net.bridge.bridge-nf-call-ip6tables
+    value: 1
+    state: present
+
+- name: grantindo net.bridge.bridge-nf-call-iptables esteja setada como 1
+  sysctl:
+    name: net.bridge.bridge-nf-call-iptables
+    value: 1
+    state: present
+
+- name: instalando kubelet e kubeadm
+  yum:
+    name: ['kubelet', 'kubeadm']
+    state: present
+    update_cache: true
+  when: ansible_os_family == "RedHat"
+    
+- name: instalando o kubelet - Ubuntu
+  apt:
+    name: ['kubelet', 'kubeadm']
+    present: true
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: start kubelet
+  service:
+    name: kubelet
+    enabled: yes
+    state: started
+

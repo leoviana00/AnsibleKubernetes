@@ -1,0 +1,16 @@
+---
+# Criação de usuário - Praticando
+
+- name: Criando o usuário ansible
+  user: name=ansible append=yes state=present createhome=yes shell=/bin/bash
+
+- name: Permitir ao usuário ansible usar sudo sem a senha
+  lineinfile:
+    dest: /etc/sudoers
+    line: 'ansible ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+- name: Configurando chave ssh para usuario centos
+  authorized_key: user=ansible key="{{item}}"
+  with_file:
+    - ~/.ssh/id_rsa.pub
