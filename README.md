@@ -31,11 +31,6 @@
   - $ ansible -i hosts -m ping all
 
     Criando roles:
-
-
-- name: Playbook defaul
-  hosts: all
-  become: yes
   
   roles:
     - swap
