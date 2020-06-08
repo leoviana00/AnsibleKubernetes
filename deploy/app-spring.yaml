@@ -31,4 +31,5 @@ spec:
   ports:
   - protocol: TCP
     port: 8080
+    NodePort: 30005
   type: NodePort

@@ -60,11 +60,8 @@ $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0
 
 $ kubectl -n kubernetes-dashboard describe service kubernetes-dashboard
 
-_________________________________________________________________________
-                         
-                     DASHBOARD - USUÁRIO ADMIN (TOKEN)
-_________________________________________________________________________
 
+- DASHBOARD - USUÁRIO ADMIN (TOKEN)
 
 $ kubectl apply -f kubernetes-dashboard-service-np.yaml 
 
