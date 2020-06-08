@@ -31,22 +31,20 @@
   - $ ansible -i hosts -m ping all
 
 - Role para desabilitar o swap nas máquinas
-  - swap.yml
+  - ansible-playbook -i hosts swap.yml
 
 - Role para criação do usuário ansible
   - usuarios.yml
 
 - Role para instalação das dependências
-  - kube-deps.yml
+  - ansible-playbook -i hosts kube-deps.yml
 
 - Role para criação e configuração do cluster
-  - master.yml
+  - ansible-playbook -i hosts master.yml
 
 - Role para ingressar as máquinas ao cluster
-  - workers.yml
+  - ansible-playbook -i hosts workers.yml
 
-- Execução das playbooks:
-  - $ ansible-playbook -i hosts nomeplaybook.yaml
 
 # Comandos Kubernetes    
 
@@ -112,7 +110,7 @@ Acessar o navegador ip:porta
 
 # Nodes pegando IP INTERNO IGUAIS
 
-- Arquivo fix-ip-nodes
+- Arquivo 'fix-ip-nodes' com instruções para correção.
 
 - Referência: https://wiki.hetzner.de/index.php/Cloud_floating_IP_persistent/en
 
