@@ -11,7 +11,7 @@ Aplicar com kubectl
 
 Nesse ponto, azul (versão 1) e verde (versão 2) são implantados. Apenas a instância azul está recebendo tráfego, no entanto. Para fazer a troca, atualize o seletor de versão da sua definição de serviço para que aponte para a nova versão:
 
--app-service.yaml
+- app-service.yaml
 
 Aplicar com kubectl
 
