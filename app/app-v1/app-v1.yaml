@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: app
+  name: app-blue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: app
+      version: 0.0.1
+  template:
+    metadata:
+      labels:
+        run: app
+        version: 0.0.1
+    spec:
+      containers:
+      - name: app
+        image: errm/versions:0.0.1
+        ports:
+        - containerPort: 3000

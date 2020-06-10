@@ -119,11 +119,29 @@ Acessar o navegador ip:porta
 
 - Arquivo 'fix-ip-nodes' com instruções para correção.
 
+$ sudo touch /etc/sysconfig/network-scripts/ifcfg-eth0:1
+$ sudo vi /etc/sysconfig/network-scripts/ifcfg-eth0:1
+
+Copiar conteúdo abaixo para dentro do arquivo substituindo your.Float.ing.IP pelo seu IP. (CentOS)
+___________________________________________________________________________
+
+BOOTPROTO=static
+DEVICE=eth0:1
+IPADDR=your.Float.ing.IP
+PREFIX=32
+TYPE=Ethernet
+USERCTL=no
+ONBOOT=yes
+___________________________________________________________________________
+
+$ sudo systemctl restart network
+
 - Referência: https://wiki.hetzner.de/index.php/Cloud_floating_IP_persistent/en
 
 - Outra opção: (Testar)
   - nano /etc/networks/ (centos)
   - nano /etc/network/interfaces (ubuntu)
+
 $ sudo systemctl restart network
 
 ---
