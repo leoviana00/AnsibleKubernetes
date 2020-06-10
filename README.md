@@ -6,7 +6,7 @@
   - k8s-master1 - IP: 192.168.0.2
   - k8s-worker1 - IP: 192.168.0.10
   - k8s-worker2 - IP: 192.168.0.11
-
+  
 - Configurar arquivo hosts (ansible) 
 
 - Alterar o sshd_config - Permitindo o password authentication
@@ -18,6 +18,11 @@
 
   - $ sudo systemctl restart sshd
 
+# Criar chave ssh
+
+  - $ ssh-keygen -t rsa -C "your_email@example.com"
+  - $ cat ~/.ssh/id_rsa.pub 
+  --- 
 - Criar usuário para compartilhamento das chaves ssh
 
   - $  sudo ssh-copy-id root@192.168.0.2
