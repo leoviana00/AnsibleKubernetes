@@ -152,8 +152,8 @@ $ sudo systemctl restart network
   - nano /etc/networks/ (centos)
   - nano /etc/network/interfaces (ubuntu)
 
-$ sudo systemctl restart network (centos)
-$ /etc/init.d/networking restart (debian)
+- $ sudo systemctl restart network (centos)
+- $ /etc/init.d/networking restart (debian)
 
 ---
 
