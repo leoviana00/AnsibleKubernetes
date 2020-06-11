@@ -63,4 +63,18 @@ Comandos:
 - curl -I -H 'Host: foo.bar' 'http://192.168.0.10:30491'
 
 O resultado tem que ser esse: HTTP/1.1 200 OK
+---
+
+
+# Deploy da aplicação desafio
+
+- ingress-spring.yaml
+
+- $ kubectl apply -f ingress-spring.yaml
+
+- $ curl -s -XGET -H 'Host: desafio.spring' 'http://192.168.0.10:30491/desafio'
+
+Resultado: Desafio01 | Spring Framework | Hello World
+
+
 

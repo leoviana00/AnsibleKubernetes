@@ -163,4 +163,17 @@ Reiniciando interfaces de rede:
 # - Restart kubelet
 $ systemctl daemon-reload && systemctl restart kubelet
 
+---
+
+
+# Deploy da aplicação desafio com ingress 
+
+- ingress-spring.yaml
+
+- $ kubectl apply -f ingress-spring.yaml
+
+- $ curl -s -XGET -H 'Host: desafio.spring' 'http://192.168.0.10:30491/desafio'
+
+Resultado: Desafio01 | Spring Framework | Hello World
+
 

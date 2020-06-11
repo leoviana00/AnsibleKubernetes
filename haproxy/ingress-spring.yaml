@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    run: spring-deploy
-  name: spring-deploy    
+    run: spring-app
+  name: spring-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      run: spring-deploy
+      run: spring-app
   template:
     metadata:
       labels:
-        run: spring-deploy
+        run: spring-app
     spec:
       containers:
-      - name: spring-desafio
-        image: leoviana00/app-spring 
+      - name: spring-app
+        image: leoviana00/app-spring
         ports:
         - containerPort: 8080
 
@@ -25,18 +25,18 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    run: spring-deploy
-  name: spring-service
+    run: spring-app
+  name: spring-app
   annotations:
     haproxy.org/check: "enabled"
     haproxy.org/forwarded-for: "enabled"
     haproxy.org/load-balance: "roundrobin"
-spec: 
+spec:
   selector:
-    run: spring-deploy
+    run: spring-app
   ports:
-  - name: port-1
-    port: 80
+  - name: http
+    port: 8080
     targetPort: 8080
     protocol: TCP
 
@@ -44,14 +44,14 @@ spec:
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-spring
+  name: spring-app-ingress
   namespace: default
 spec:
   rules:
   - host: desafio.spring
     http:
       paths:
-      - path: /
+      - path: /desafio
         backend:
-          serviceName: spring-service
-          servicePort: 80
+          serviceName: spring-app
+          servicePort: 8080
