@@ -144,13 +144,16 @@ USERCTL=no
 ONBOOT=yes
 ___________________________________________________________________________
 
-$ sudo systemctl restart network
+
 
 - Referência: https://wiki.hetzner.de/index.php/Cloud_floating_IP_persistent/en
 
 - Outra opção: (Testar)
   - nano /etc/networks/ (centos)
   - nano /etc/network/interfaces (ubuntu)
+---
+
+Reiniciando interfaces de rede:
 
 - $ sudo systemctl restart network (centos)
 - $ /etc/init.d/networking restart (debian)
