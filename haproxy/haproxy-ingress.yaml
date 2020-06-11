@@ -80,8 +80,8 @@ subjects:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: haproxy-configmap
-  namespace: default
+  name: haproxy
+  namespace: haproxy-controller
 data:
 
 ---
@@ -144,13 +144,11 @@ spec:
         run: haproxy-ingress
     spec:
       serviceAccountName: haproxy-ingress-service-account
-      imagePullSecrets:
-      - name: regcred
       containers:
       - name: haproxy-ingress
-        image: kubernetes-registry.haproxy.com/hapee-ingress
+        image: haproxytech/kubernetes-ingress
         args:
-          - --configmap=default/haproxy-configmap
+          - --configmap=haproxy-controller/haproxy
           - --default-backend-service=haproxy-controller/ingress-default-backend
         resources:
           requests:
@@ -188,7 +186,7 @@ metadata:
 spec:
   selector:
     run: haproxy-ingress
-  type: LoadBalancer
+  type: NodePort
   ports:
   - name: http
     port: 80

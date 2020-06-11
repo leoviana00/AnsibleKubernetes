@@ -10,7 +10,7 @@
     line: 'ansible ALL=(ALL) NOPASSWD: ALL'
     validate: 'visudo -cf %s'
 
-- name: Configurando chave ssh para usuario centos
+- name: Configurando chave ssh para usuario ansible
   authorized_key: user=ansible key="{{item}}"
   with_file:
     - ~/.ssh/id_rsa.pub

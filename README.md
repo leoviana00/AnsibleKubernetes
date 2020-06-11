@@ -19,6 +19,10 @@
   - $ sudo systemctl restart sshd
 ---
 
+# Instalação python 3
+  - $ sudo yum install python3-pip -y
+---
+
 # Criar chave ssh
 
   - $ ssh-keygen -t rsa -C "your_email@example.com"
@@ -148,7 +152,8 @@ $ sudo systemctl restart network
   - nano /etc/networks/ (centos)
   - nano /etc/network/interfaces (ubuntu)
 
-$ sudo systemctl restart network
+$ sudo systemctl restart network (centos)
+$ /etc/init.d/networking restart (debian)
 
 ---
 
