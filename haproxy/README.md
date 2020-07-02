@@ -60,7 +60,7 @@ Comandos:
 
 # Testando novemete o envio de solicitação
 
-- curl -I -H 'Host: foo.bar' 'http://192.168.0.10:30491'
+- curl -I -H 'Host: foo.bar' 'http://192.168.0.10:30376'
 
 O resultado tem que ser esse: HTTP/1.1 200 OK
 ---
@@ -72,7 +72,12 @@ O resultado tem que ser esse: HTTP/1.1 200 OK
 
 - $ kubectl apply -f ingress-spring.yaml
 
-- $ curl -s -XGET -H 'Host: desafio.spring' 'http://192.168.0.10:30491/desafio'
+- $ curl -I -H 'Host: desafio.spring' 'http://192.168.0.10:30376/desafio'
+O resultado tem que ser esse: HTTP/1.1 200 OK
+
+
+
+- $ curl -s -XGET -H 'Host: desafio.spring' 'http://192.168.0.10:30376/desafio'
 
 Resultado: Desafio01 | Spring Framework | Hello World
 

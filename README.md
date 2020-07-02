@@ -1,3 +1,9 @@
+## Modelagem do ambiente 
+
+![](/imagem/kubernetes.jpeg)
+
+---
+
 # Levantar o ambiente
 
 - Subir as vms
@@ -52,12 +58,7 @@
 
 ---
 
-- $ ansible-galaxy init kubernetes (Role para instalação do kubernetes)
-- $ ansible-galaxy init docker (Role para instalação do docker)
-- $ ansible-galaxy init swap (Role para desabilitar o swap nas máquinas)
-- $ ansible-galaxy init usuarios (Role para criação do usuário ansible)
-- $ ansible-galaxy init master (Role para criação e configuração do cluster)
-- $ ansible-galaxy init worker (Role para ingressar as máquinas ao cluster)
+Contruir a playbook:
 
 - $ ansible-playbook -i hosts playbook.yaml
   
@@ -93,9 +94,8 @@ https://192.168.0.2:30002/#/login (PODE SER IP DE QUALQUER UM DOS NÓS)
 # DEPLOYMENT APP SPRING
 
 1 - Criar o manifesto (app-spring.yaml)
-       - Deploy
-       - Container
-       - Service 
+
+--- Alguns comandos ---
 
 2 - Criar o deployment 
   - $ kubectl apply -f app-spring.yaml  
@@ -120,7 +120,7 @@ https://192.168.0.2:30002/#/login (PODE SER IP DE QUALQUER UM DOS NÓS)
 
 9 - Listar contextos
   - $ kubectl config get-contexts
-
+cd Documentos/desafios/AnsibleKubernetes/vagrant/
 Acessar o navegador ip:porta
 
 ---
@@ -135,16 +135,8 @@ $ sudo vi /etc/sysconfig/network-scripts/ifcfg-eth0:1
 Copiar conteúdo abaixo para dentro do arquivo substituindo your.Float.ing.IP pelo seu IP. (CentOS)
 ___________________________________________________________________________
 
-BOOTPROTO=static
-DEVICE=eth0:1
-IPADDR=your.Float.ing.IP
-PREFIX=32
-TYPE=Ethernet
-USERCTL=no
-ONBOOT=yes
+Conteúdo no arquivo 'fix-ip-nodes'
 ___________________________________________________________________________
-
-
 
 - Referência: https://wiki.hetzner.de/index.php/Cloud_floating_IP_persistent/en
 
@@ -159,12 +151,7 @@ Reiniciando interfaces de rede:
 - $ /etc/init.d/networking restart (debian)
 
 ---
-
-# - Restart kubelet
-$ systemctl daemon-reload && systemctl restart kubelet
-
----
-
+curl -I -H 'Host: foo.bar' 'http://192.168.0.10:30491'
 
 # Deploy da aplicação desafio com ingress 
 
@@ -172,8 +159,8 @@ $ systemctl daemon-reload && systemctl restart kubelet
 
 - $ kubectl apply -f ingress-spring.yaml
 
-- $ curl -s -XGET -H 'Host: desafio.spring' 'http://192.168.0.10:30491/desafio'
+- $ curl -I -H 'Host: desafio.spring' 'http://192.168.0.10:30376/desafio'
 
-Resultado: Desafio01 | Spring Framework | Hello World
+Resultado: ok
 
 
