@@ -18,7 +18,7 @@
 - Alterar o sshd_config - Permitindo o password authentication
 
   - $ sudo vi /etc/ssh/sshd_config
-   PasswordAuthentication yes
+    PasswordAuthentication yes
 
 - Reiniciar o serviço ssh
 
