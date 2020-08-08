@@ -46,7 +46,7 @@
 - Teste de comunicação com módulo ping do ansible
   - $ ansible -i hosts -m ping all
 
-    Criando roles:
+   Criando roles:
   
   roles:
     - swap
