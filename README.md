@@ -34,6 +34,7 @@
   - $ ssh-keygen -t rsa -C "your_email@example.com"
   - $ cat ~/.ssh/id_rsa.pub 
   --- sudo apt-get purge kubeadm kubectl kubelet kubernetes-cni kube*
+  
 - Criar usuário para compartilhamento das chaves ssh
 
   - $  sudo ssh-copy-id root@192.168.0.2
